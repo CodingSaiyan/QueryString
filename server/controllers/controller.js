@@ -27,7 +27,7 @@ module.exports = {
     let { search } = req.query
     let todos = list
 
-    let searchResponse = todos.map((item, i) => {
+    let searchResponse = todos.filter((item, i) => {
         return item.todo.includes(search);
     })
 

@@ -26,15 +26,31 @@ class Todo extends Component {
     }
     search() {
         axios.get(`/todos/?search=${this.state.searchTerm}`).then(res => {
-            console.log(res.data);
+            this.setState({
+                list: res.data
+            })
         });
     }
     render() {
+
+        let { list } = this.state
+        let listDisplay = list.map((item, i) => {
+            return(
+                <div key={i}>
+                <h3>{item.todo}</h3>
+                <h4>{item.for}</h4>
+                <h4>{item.how}</h4>
+            </div>
+            )
+
+        }) 
+
         return (
             <div>
                 <h2>This is the Todo Class Component</h2>
                 <input value={this.state.searchTerm} type="text" onChange={(e) => this.handleChange(e.target.value)} placeholder="QuerySearch"/>
                 <button onClick={() => this.search()}>Search</button>
+                {listDisplay}
             </div>
         )
     }
